@@ -58,17 +58,12 @@ export const CoinGuesser = () => {
 		setTrials([...trials, ...new_trials])
 	}
 	const theoretical_probability = () =>
-		(1 / 2) ** coins.filter(c => c == "H" || C == "T").length
+		(1 / 2) ** coins.filter(c => c == "H" || c == "T").length
 
 	const experimental_probability = () => {
-		const matches = trials.map(trial => {
-			return trial.every((t, i) => {
-				const c = coins[i]
-
-				if (c == "?") return true
-				else return t == c
-			})
-		})
+		const matches = trials.map(trial =>
+			trial.every((t, i) => t == coins[i] || coins[i] == "?")
+		)
 
 		return matches.filter(m => m == true).length / trials.length
 	}
