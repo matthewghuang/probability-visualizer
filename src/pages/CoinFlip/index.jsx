@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { BlueLink } from "../../components/BlueLink"
 import styled from "styled-components"
 
 const Coin = styled.div.attrs({
@@ -27,7 +28,10 @@ export const CoinFlip = () => {
 
 	return (
 		<div className="container mx-auto space-y-3">
-			<h1 className="text-2xl">Coin Flip</h1>
+			<div>
+				<h1 className="text-2xl">Coin Flip</h1>
+				<BlueLink to="/">Home</BlueLink>
+			</div>
 
 			<div className="space-x-1">
 				<Button onClick={add_coin}>Flip a coin</Button>
@@ -48,12 +52,14 @@ export const CoinFlip = () => {
 			</div>
 
 			<div className="grid grid-cols-2 gap-5">
-				<div className="font-mono">
-					The distribution of coins is:
+				<div>
+					The current distribution of coins is:
 					<br />
-					H: {(coins.filter(r => r == "H").length / coins.length) * 100}%
-					<br></br>
-					T: {(coins.filter(r => r == "T").length / coins.length) * 100}%
+					<span className="font-mono">
+						H: {(coins.filter(r => r == "H").length / coins.length) * 100}%
+						<br></br>
+						T: {(coins.filter(r => r == "T").length / coins.length) * 100}%
+					</span>
 				</div>
 			</div>
 		</div>
