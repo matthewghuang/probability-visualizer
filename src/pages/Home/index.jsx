@@ -1,15 +1,12 @@
 import React from "react"
-import { Link } from "react-router-dom"
-import "../../styles/link.css"
+import { BlueLink } from "../../components/BlueLink"
 
 export const Home = () => {
 	return (
 		<div className="container mx-auto">
 			<h1 className="text-2xl">Probability Visualizer</h1>
 
-			<Link to="/coin-flip" className="link">
-				Coin Flip
-			</Link>
+			<BlueLink to="/coin-flip">Coin Flip</BlueLink>
 		</div>
 	)
 }

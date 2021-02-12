@@ -16,18 +16,14 @@ const get_reverse = arr => arr.reduceRight((accum, v) => accum.concat(v), [])
 export const CoinFlip = () => {
 	const [coins, setCoins] = useState([roll_coin()])
 
-	const add_coin = () => {
-		setCoins([...coins, roll_coin()])
-	}
+	const add_coin = () => setCoins([...coins, roll_coin()])
 
 	const add_n_coins = n => {
 		const new_coins = [...Array(n)].map(roll_coin)
 		setCoins([...coins, ...new_coins])
 	}
 
-	const reset = () => {
-		setCoins([roll_coin()])
-	}
+	const reset = () => setCoins([roll_coin()])
 
 	return (
 		<div className="container mx-auto space-y-3">
