@@ -9,7 +9,7 @@ const Button = styled.button.attrs({
 const factorial = n => (n ? n * factorial(n - 1) : 1)
 
 export const PermutationLock = () => {
-	const [numbers, setNumbers] = useState([])
+	const [numbers, setNumbers] = useState([1])
 	const [max, setMax] = useState(10)
 
 	const on_number_of_numbers_input = event =>
@@ -48,6 +48,7 @@ export const PermutationLock = () => {
 						name="number-of-numbers"
 						min={1}
 						max={10}
+						value={numbers.length}
 						onInput={on_number_of_numbers_input}
 						className="p-1 bg-green-400 rounded-lg"
 					/>
