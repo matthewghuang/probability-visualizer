@@ -59,6 +59,7 @@ export const PermutationLock = () => {
 						name="max-number"
 						min={10}
 						max={100}
+						value={max}
 						onInput={on_max_input}
 						className="p-1 bg-green-400 rounded-lg"
 					/>
