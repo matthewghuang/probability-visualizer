@@ -14,6 +14,9 @@ export const Home = () => {
 					<li>
 						<BlueLink to="/dice-guesser">Dice Guesser</BlueLink>
 					</li>
+					<li>
+						<BlueLink to="/permutation-lock">Permutuation Lock</BlueLink>
+					</li>
 				</ul>
 			</div>
 		</div>
