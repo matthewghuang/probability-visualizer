@@ -2,67 +2,65 @@ import React, { useState } from "react"
 import { BlueLink } from "../../components/BlueLink"
 import styled from "styled-components"
 
-const Coin = styled.div.attrs({
+const Dice = styled.div.attrs({
 	className:
-		"flex bg-yellow-800 w-24 h-24 rounded-full justify-center items-center text-3xl text-white select-none"
+		"flex bg-gray-300 w-24 h-24 rounded-lg justify-center items-center text-3xl select-none"
 })``
 const Button = styled.button.attrs({
 	className: "p-1 rounded-lg bg-blue-400"
 })``
 
-export const CoinGuesser = () => {
-	const [coins, _setCoins] = useState([])
+const random_number_inc = (min, max) =>
+	Math.floor(Math.random() * (max - min + 1)) + min
+
+export const DiceGuesser = () => {
+	const [dice, _setDice] = useState([])
 	const [trials, setTrials] = useState([])
 
-	const setCoins = arr => {
+	const setDice = arr => {
 		setTrials([])
-		_setCoins(arr)
+		_setDice(arr)
 	}
 
-	const on_number_of_coins_input = event =>
-		setCoins(Array(Number(event.target.value)).fill("?"))
+	const on_number_of_dice_input = event =>
+		setDice(Array(Number(event.target.value)).fill("?"))
 
 	const get_next_symbol = cur => {
-		switch (cur) {
-			case "?":
-				return "H"
-			case "H":
-				return "T"
-			case "T":
-				return "?"
+		if (cur == "?") return 1
+		else {
+			if (cur + 1 < 7) return cur + 1
+			else return "?"
 		}
 	}
 
-	const on_coin_click = idx => {
-		const cur_wanted = coins[idx]
+	const on_dice_click = idx => {
+		const cur_wanted = dice[idx]
 
-		setCoins([
-			...coins.slice(0, idx),
+		setDice([
+			...dice.slice(0, idx),
 			get_next_symbol(cur_wanted),
-			...coins.slice(idx + 1)
+			...dice.slice(idx + 1)
 		])
 	}
 
-	const generate_random_coin = () => (Math.round(Math.random()) ? "H" : "T")
-
 	const add_trial = () => {
-		const trial = [...Array(coins.length)].map(generate_random_coin)
+		const trial = [...Array(dice.length)].map(() => random_number_inc(1, 6))
 
 		setTrials([...trials, trial])
 	}
 
 	const add_hundred_trials = () => {
 		const new_trials = [...Array(100)].map(() =>
-			[...Array(coins.length)].map(generate_random_coin)
+			[...Array(dice.length)].map(() => random_number_inc(1, 6))
 		)
 		setTrials([...trials, ...new_trials])
 	}
 	const theoretical_probability = () =>
-		(1 / 2) ** coins.filter(c => c == "H" || c == "T").length
+		(1 / 6) ** dice.filter(c => c != "?").length
 
 	const experimental_probability = () => {
 		const matches = trials.map(trial =>
-			trial.every((t, i) => t == coins[i] || coins[i] == "?")
+			trial.every((t, i) => t == dice[i] || dice[i] == "?")
 		)
 
 		return matches.filter(m => m == true).length / trials.length
@@ -71,17 +69,17 @@ export const CoinGuesser = () => {
 	return (
 		<div className="container mx-auto space-y-3">
 			<div>
-				<h1 className="text-2xl">Coin Guesser</h1>
+				<h1 className="text-2xl">Dice Guesser</h1>
 				<BlueLink to="/">Home</BlueLink>
 			</div>
 
 			<div className="space-y-1">
 				<fieldset>
-					<label htmlFor="number-of-coins">Number of Coins: </label>
+					<label htmlFor="number-of-dice">Number of Dice: </label>
 					<input
 						type="number"
-						name="number-of-coins"
-						onInput={on_number_of_coins_input}
+						name="number-of-dice"
+						onInput={on_number_of_dice_input}
 						min="0"
 						max="10"
 						className="p-1 bg-blue-400 rounded-lg"
@@ -95,10 +93,10 @@ export const CoinGuesser = () => {
 			</div>
 
 			<div className="flex space-x-1">
-				{coins.map((wanted, idx) => (
-					<Coin key={idx} onClick={() => on_coin_click(idx)}>
+				{dice.map((wanted, idx) => (
+					<Dice key={idx} onClick={() => on_dice_click(idx)}>
 						{wanted}
-					</Coin>
+					</Dice>
 				))}
 			</div>
 
